@@ -1,19 +1,17 @@
 use aoc_runner_derive::{aoc, aoc_generator};
+use std::collections::HashSet;
 use std::error::Error;
 
 #[aoc_generator(day1)]
-fn parse_input(input: &str) -> Result<Vec<u32>, Box<dyn Error>> {
-    input.lines().map(|l|{
-        Ok(l.parse::<u32>().unwrap())
-    }).collect()
+fn parse_input(input: &str) -> Result<Vec<u64>, Box<dyn Error>> {
+    input.lines().map(|l| Ok(l.parse().unwrap())).collect()
 }
 
 #[aoc(day1, part1)]
-fn part1(expenses: &[u32]) -> u32 {
-
-    for i in 0..expenses.len()-1 {
-        for j in i..expenses.len()-1{
-            if expenses[i] + expenses[j] == 2020{
+fn part1(expenses: &Vec<u64>) -> u64 {
+    for i in 0..expenses.len() - 1 {
+        for j in i..expenses.len() - 1 {
+            if expenses[i] + expenses[j] == 2020 {
                 return expenses[i] * expenses[j];
             }
         }
@@ -22,11 +20,11 @@ fn part1(expenses: &[u32]) -> u32 {
 }
 
 #[aoc(day1, part2)]
-fn part2(expenses: &[u32]) -> u32 {
-    for i in 0..expenses.len()-1 {
-        for j in i..expenses.len()-1{
-            for k in j ..expenses.len()-1 {
-                if expenses[i] + expenses[j]+ expenses[k] == 2020{
+fn part2(expenses: &Vec<u64>) -> u64 {
+    for i in 0..expenses.len() - 1 {
+        for j in i..expenses.len() - 1 {
+            for k in j..expenses.len() - 1 {
+                if expenses[i] + expenses[j] + expenses[k] == 2020 {
                     return expenses[i] * expenses[j] * expenses[k];
                 }
             }
@@ -35,20 +33,66 @@ fn part2(expenses: &[u32]) -> u32 {
     return 0;
 }
 
+////////////////////////////////////////////////
+/// solution with hashing
+
+#[aoc_generator(day1, part1, hash)]
+#[aoc_generator(day1, part2, hash)]
+fn parse_input_hash(input: &str) -> Result<HashSet<u64>, Box<dyn Error>> {
+    input.lines().map(|l| Ok(l.parse().unwrap())).collect()
+}
+
+#[aoc(day1, part1, hash)]
+fn part1_hash(expenses: &HashSet<u64>) -> u64 {
+    for i in expenses {
+        let j = 2020 - i;
+        if expenses.contains(&j) {
+            return j * i;
+        }
+    }
+    return 0;
+}
+
+#[aoc(day1, part2, hash)]
+fn part2_hash(expenses: &HashSet<u64>) -> u64 {
+    for i in expenses {
+        for j in expenses {
+            let k = 2020 - j - i;
+            if expenses.contains(&k) {
+                return k * j * i;
+            }
+        }
+    }
+    return 0;
+}
+
+////////////////////////////////////////////////
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn sample1() {
-        let input = [1721, 979, 366, 299, 675, 1456];
+        let input = vec![1721, 979, 366, 299, 675, 1456];
         assert_eq!(part1(&input), 514579);
     }
 
     #[test]
+    fn sample1_hash() {
+        let input = vec![1721, 979, 366, 299, 675, 1456].into_iter().collect();
+        assert_eq!(part1_hash(&input), 514579);
+    }
+
+    #[test]
     fn sample2() {
-        let input = [1721, 979, 366, 299, 675, 1456];
+        let input = vec![1721, 979, 366, 299, 675, 1456];
         assert_eq!(part2(&input), 241861950);
     }
 
+    #[test]
+    fn sample2_hash() {
+        let input = vec![1721, 979, 366, 299, 675, 1456].into_iter().collect();
+        assert_eq!(part2_hash(&input), 241861950);
+    }
 }
