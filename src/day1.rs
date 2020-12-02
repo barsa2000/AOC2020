@@ -3,12 +3,12 @@ use std::collections::HashSet;
 use std::error::Error;
 
 #[aoc_generator(day1)]
-fn parse_input(input: &str) -> Result<Vec<u64>, Box<dyn Error>> {
+fn parse_input(input: &str) -> Result<Vec<i32>, Box<dyn Error>> {
     input.lines().map(|l| Ok(l.parse().unwrap())).collect()
 }
 
 #[aoc(day1, part1)]
-fn part1(expenses: &Vec<u64>) -> u64 {
+fn part1(expenses: &Vec<i32>) -> i32 {
     for i in 0..expenses.len() - 1 {
         for j in i..expenses.len() - 1 {
             if expenses[i] + expenses[j] == 2020 {
@@ -20,7 +20,7 @@ fn part1(expenses: &Vec<u64>) -> u64 {
 }
 
 #[aoc(day1, part2)]
-fn part2(expenses: &Vec<u64>) -> u64 {
+fn part2(expenses: &Vec<i32>) -> i32 {
     for i in 0..expenses.len() - 1 {
         for j in i..expenses.len() - 1 {
             for k in j..expenses.len() - 1 {
@@ -38,12 +38,12 @@ fn part2(expenses: &Vec<u64>) -> u64 {
 
 #[aoc_generator(day1, part1, hash)]
 #[aoc_generator(day1, part2, hash)]
-fn parse_input_hash(input: &str) -> Result<HashSet<u64>, Box<dyn Error>> {
+fn parse_input_hash(input: &str) -> Result<HashSet<i32>, Box<dyn Error>> {
     input.lines().map(|l| Ok(l.parse().unwrap())).collect()
 }
 
 #[aoc(day1, part1, hash)]
-fn part1_hash(expenses: &HashSet<u64>) -> u64 {
+fn part1_hash(expenses: &HashSet<i32>) -> i32 {
     for i in expenses {
         let j = 2020 - i;
         if expenses.contains(&j) {
@@ -54,7 +54,7 @@ fn part1_hash(expenses: &HashSet<u64>) -> u64 {
 }
 
 #[aoc(day1, part2, hash)]
-fn part2_hash(expenses: &HashSet<u64>) -> u64 {
+fn part2_hash(expenses: &HashSet<i32>) -> i32 {
     for i in expenses {
         for j in expenses {
             let k = 2020 - j - i;
