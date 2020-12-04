@@ -19,8 +19,8 @@ fn parse_input(input: &str) -> Result<Vec<Vec<bool>>, Box<dyn Error>> {
     Ok(out)
 }
 
-fn get_trees(map: &Vec<Vec<bool>>, speed_x: usize, speed_y: usize) -> u64 {
-    let mut c = 0_u64;
+fn get_trees(map: &Vec<Vec<bool>>, speed: &(usize, usize)) -> u64 {
+    let mut c = 0;
 
     let mut x = 0;
     let mut y = 0;
@@ -36,8 +36,8 @@ fn get_trees(map: &Vec<Vec<bool>>, speed_x: usize, speed_y: usize) -> u64 {
             c += 1;
         }
 
-        x += speed_x;
-        y += speed_y
+        x += speed.0;
+        y += speed.1;
     }
 
     c
@@ -45,16 +45,13 @@ fn get_trees(map: &Vec<Vec<bool>>, speed_x: usize, speed_y: usize) -> u64 {
 
 #[aoc(day3, part1)]
 fn part1(map: &Vec<Vec<bool>>) -> u64 {
-    get_trees(map, 3, 1)
+    get_trees(map, &(3, 1))
 }
 
 #[aoc(day3, part2)]
 fn part2(map: &Vec<Vec<bool>>) -> u64 {
-    get_trees(map, 1, 1)
-        * get_trees(map, 3, 1)
-        * get_trees(map, 5, 1)
-        * get_trees(map, 7, 1)
-        * get_trees(map, 1, 2)
+    let speeds:Vec<(usize,usize)> = vec![(1,1),(3,1),(5,1),(7,1),(1,2)];
+    speeds.iter().map(|s| get_trees(map,s)).product()
 }
 
 #[cfg(test)]
