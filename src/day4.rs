@@ -1,4 +1,5 @@
 use aoc_runner_derive::{aoc, aoc_generator};
+use regex::Regex;
 use std::collections::HashMap;
 use std::error::Error;
 
@@ -10,7 +11,7 @@ fn parse_input(input: &str) -> Result<Vec<HashMap<String, String>>, Box<dyn Erro
             p.split_whitespace()
                 .map(|entry| {
                     let mut s = entry.split(":");
-                    (s.next().unwrap().to_string() , s.next().unwrap().to_string())
+                    (s.next().unwrap().to_string(), s.next().unwrap().to_string())
                 })
                 .collect()
         })
@@ -19,7 +20,7 @@ fn parse_input(input: &str) -> Result<Vec<HashMap<String, String>>, Box<dyn Erro
 
 #[aoc(day4, part1)]
 fn part1(passports: &Vec<HashMap<String, String>>) -> usize {
-    let keys = vec!["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //,"cid"
+    let keys = vec!["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //, "cid"
 
     passports
         .iter()
@@ -29,7 +30,7 @@ fn part1(passports: &Vec<HashMap<String, String>>) -> usize {
 
 #[aoc(day4, part2)]
 fn part2(passports: &Vec<HashMap<String, String>>) -> usize {
-    let keys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //,"cid"
+    let keys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //, "cid"
 
     let byr_valids = 1920..=2002;
     let iyr_valids = 2010..=2020;
@@ -51,6 +52,35 @@ fn part2(passports: &Vec<HashMap<String, String>>) -> usize {
     }).count()
 }
 
+//////////////////////////////////
+//regex solution
+#[aoc(day4, part2, regex)]
+fn part2_regex(passports: &Vec<HashMap<String, String>>) -> usize {
+    let keys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //, "cid"
+
+    let re_byr = Regex::new(r"^19[2-9][0-9]|200[0-2]$").unwrap();
+    let re_iyr = Regex::new(r"^20(1[0-9]|20)$").unwrap();
+    let re_eyr = Regex::new(r"^20(2[0-9]|30)$").unwrap();
+    let re_hgt = Regex::new(r"^1([5-8][0-9]|9[0-3])cm|(59|6[0-9]|7[0-6])in$").unwrap();
+    let re_hcl = Regex::new(r"^#[0-9a-f]{6}$").unwrap();
+    let re_ecl = Regex::new(r"^amb|blu|brn|gry|grn|hzl|oth$").unwrap();
+    let re_pid = Regex::new(r"^[0-9]{9}$").unwrap();
+
+    passports
+        .iter()
+        .filter(|p| {
+            keys.iter().all(|k| p.contains_key(*k))
+                && re_byr.is_match(p.get("byr").unwrap())
+                && re_iyr.is_match(p.get("iyr").unwrap())
+                && re_eyr.is_match(p.get("eyr").unwrap())
+                && re_hgt.is_match(p.get("hgt").unwrap())
+                && re_hcl.is_match(p.get("hcl").unwrap())
+                && re_ecl.is_match(p.get("ecl").unwrap())
+                && re_pid.is_match(p.get("pid").unwrap())
+        })
+        .count()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -62,6 +92,6 @@ mod tests {
 
         // println!("{:?}", part2(input));
         // assert_eq!(part2(input), 1);
-        assert_eq!(part1(&parse_input(input).unwrap()), 1);
+        assert_eq!(part2_regex(&parse_input(input).unwrap()), 1);
     }
 }
