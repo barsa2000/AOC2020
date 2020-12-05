@@ -17,7 +17,7 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | Problem                                                             | Solution               | #1  |  #1 Answer | #2  |      #2 Answer |
 | :------------------------------------------------------------------ | :--------------------- | :-: | ---------: | :-: | -------------: |
 | [Day 1: Report Repair](https://adventofcode.com/2020/day/1)         | [day1.rs](src/day1.rs) |  ✓  | **788739** |  ✓  |  **178724430** |
-| [Day 2: Password Philosophy](https://adventofcode.com/2020/day/2)   | [day1.rs](src/day1.rs) |  ✓  |    **500** |  ✓  |        **313** |
-| [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)   | [day1.rs](src/day1.rs) |  ✓  |    **214** |  ✓  | **8336352024** |
-| [Day 4: Passport Processing](https://adventofcode.com/2020/day/4)   | [day1.rs](src/day1.rs) |  ✓  |    **206** |  ✓  |        **123** |
-| [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [day1.rs](src/day1.rs) |  ✓  |    **888** |  ✓  |        **522** |
+| [Day 2: Password Philosophy](https://adventofcode.com/2020/day/2)   | [day2.rs](src/day2.rs) |  ✓  |    **500** |  ✓  |        **313** |
+| [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)   | [day3.rs](src/day3.rs) |  ✓  |    **214** |  ✓  | **8336352024** |
+| [Day 4: Passport Processing](https://adventofcode.com/2020/day/4)   | [day4.rs](src/day4.rs) |  ✓  |    **206** |  ✓  |        **123** |
+| [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [day5.rs](src/day5.rs) |  ✓  |    **888** |  ✓  |        **522** |
