@@ -2,25 +2,21 @@ use aoc_runner_derive::{aoc, aoc_generator};
 use std::error::Error;
 
 #[aoc_generator(day5)]
-fn parse_input(input: &str) -> Result<Vec<String>, Box<dyn Error>> {
-    input.lines().map(|l| Ok(l.to_string())).collect()
+fn parse_input(input: &str) -> Result<Vec<u16>, Box<dyn Error>> {
+    input
+        .lines()
+        .map(|l| Ok(calc_row(l) * 8 + calc_col(l)))
+        .collect()
 }
 
 #[aoc(day5, part1)]
-fn part1(passes: &Vec<String>) -> u16 {
-    passes
-        .into_iter()
-        .map(|p| calc_row(p) * 8 + calc_col(p))
-        .max()
-        .unwrap()
+fn part1(passes: &Vec<u16>) -> u16 {
+    *passes.iter().max().unwrap()
 }
 
 #[aoc(day5, part2)]
-fn part2(passes: &Vec<String>) -> u16 {
-    let mut ids: Vec<u16> = passes
-        .into_iter()
-        .map(|p| calc_row(p) * 8 + calc_col(p))
-        .collect();
+fn part2(passes: &Vec<u16>) -> u16 {
+    let mut ids = passes.clone();
     ids.sort();
     ids.iter()
         .zip(ids.iter().skip(1))
