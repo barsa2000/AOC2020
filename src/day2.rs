@@ -12,11 +12,11 @@ fn parse_input(input: &str) -> Result<Vec<(PwdPolicy, String)>, Box<dyn Error>> 
             let pol = split.next().unwrap();
             let s = split.next().unwrap().to_string();
 
-            let mut split = pol.split(" ");
+            let mut split = pol.split(' ');
             let range = split.next().unwrap();
             let c = split.next().unwrap().chars().next().unwrap();
 
-            let mut split = range.split("-");
+            let mut split = range.split('-');
             let min = split.next().unwrap().parse::<usize>().unwrap();
             let max = split.next().unwrap().parse::<usize>().unwrap();
 
@@ -26,7 +26,7 @@ fn parse_input(input: &str) -> Result<Vec<(PwdPolicy, String)>, Box<dyn Error>> 
 }
 
 #[aoc(day2, part1)]
-fn part1(passwords: &Vec<(PwdPolicy, String)>) -> usize {
+fn part1(passwords: &[(PwdPolicy, String)]) -> usize {
     passwords
         .iter()
         .filter(|p| {
@@ -37,7 +37,7 @@ fn part1(passwords: &Vec<(PwdPolicy, String)>) -> usize {
 }
 
 #[aoc(day2, part2)]
-fn part2(passwords: &Vec<(PwdPolicy, String)>) -> usize {
+fn part2(passwords: &[(PwdPolicy, String)]) -> usize {
     passwords
         .iter()
         .filter(|p| {
@@ -52,22 +52,32 @@ mod tests {
     use super::*;
 
     #[test]
-    fn sample1() {
+    fn test_1_1() {
         assert_eq!(part1(&parse_input("1-3 a: abcde").unwrap()), 1);
     }
 
     #[test]
-    fn sample2() {
+    fn test_2_1() {
+        assert_eq!(part1(&parse_input("1-3 b: cdefg").unwrap()), 0);
+    }
+
+    #[test]
+    fn test_3_1() {
+        assert_eq!(part1(&parse_input("2-9 c: ccccccccc").unwrap()), 1);
+    }
+
+    #[test]
+    fn test_1_2() {
         assert_eq!(part2(&parse_input("1-3 a: abcde").unwrap()), 1);
     }
 
     #[test]
-    fn sample3() {
+    fn test_2_2() {
         assert_eq!(part2(&parse_input("1-3 b: cdefg").unwrap()), 0);
     }
 
     #[test]
-    fn sample4() {
+    fn test_3_2() {
         assert_eq!(part2(&parse_input("2-9 c: ccccccccc").unwrap()), 0);
     }
 }

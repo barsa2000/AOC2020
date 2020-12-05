@@ -10,7 +10,7 @@ fn parse_input(input: &str) -> Result<Vec<HashMap<String, String>>, Box<dyn Erro
         .map(|p| {
             p.split_whitespace()
                 .map(|entry| {
-                    let mut s = entry.split(":");
+                    let mut s = entry.split(':');
                     (s.next().unwrap().to_string(), s.next().unwrap().to_string())
                 })
                 .collect()
@@ -19,7 +19,7 @@ fn parse_input(input: &str) -> Result<Vec<HashMap<String, String>>, Box<dyn Erro
 }
 
 #[aoc(day4, part1)]
-fn part1(passports: &Vec<HashMap<String, String>>) -> usize {
+fn part1(passports: &[HashMap<String, String>]) -> usize {
     let keys = vec!["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //, "cid"
 
     passports
@@ -29,7 +29,7 @@ fn part1(passports: &Vec<HashMap<String, String>>) -> usize {
 }
 
 #[aoc(day4, part2)]
-fn part2(passports: &Vec<HashMap<String, String>>) -> usize {
+fn part2(passports: &[HashMap<String, String>]) -> usize {
     let keys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //, "cid"
 
     let byr_valids = 1920..=2002;
@@ -46,16 +46,14 @@ fn part2(passports: &Vec<HashMap<String, String>>) -> usize {
         (eyr_valids.contains(&p.get("eyr").unwrap().parse::<u128>().unwrap())) && //eyr
         (ecl_valids.contains(&&p.get("ecl").unwrap()[..])) && //ecl
         (p.get("pid").unwrap().len() == 9 && p.get("pid").unwrap().chars().all(|c| c.is_digit(10))) && //pid
-        (p.get("hcl").unwrap().len() == 7 && p.get("hcl").unwrap().starts_with("#") && p.get("hcl").unwrap().chars().skip(1).all(|c| c.is_digit(16))) && //hcl
+        (p.get("hcl").unwrap().len() == 7 && p.get("hcl").unwrap().starts_with('#') && p.get("hcl").unwrap().chars().skip(1).all(|c| c.is_digit(16))) && //hcl
         ((p.get("hgt").unwrap().ends_with("cm") && hgt_cm_valids.contains(&p.get("hgt").unwrap().trim_end_matches("cm").parse::<u128>().unwrap())) ||
          (p.get("hgt").unwrap().ends_with("in") && hgt_in_valids.contains(&p.get("hgt").unwrap().trim_end_matches("in").parse::<u128>().unwrap()))) //hgt
     }).count()
 }
 
-//////////////////////////////////
-//regex solution
 #[aoc(day4, part2, regex)]
-fn part2_regex(passports: &Vec<HashMap<String, String>>) -> usize {
+fn part2_regex(passports: &[HashMap<String, String>]) -> usize {
     let keys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]; //, "cid"
 
     let re_byr = Regex::new(r"^19[2-9][0-9]|200[0-2]$").unwrap();
@@ -86,12 +84,40 @@ mod tests {
     use super::*;
 
     #[test]
-    fn sample1() {
-        let input = "pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
-        hcl:#623a2f";
+    fn test_1_1() {
+        let input = "\
+pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+hcl:#623a2f";
 
-        // println!("{:?}", part2(input));
-        // assert_eq!(part2(input), 1);
-        assert_eq!(part2_regex(&parse_input(input).unwrap()), 1);
+        assert_eq!(part1(&parse_input(input).unwrap()), 1);
+    }
+
+    #[test]
+    fn test_2_1() {
+        let input = "\
+iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+hcl:#cfa07d byr:1929";
+
+        assert_eq!(part1(&parse_input(input).unwrap()), 0);
+    }
+
+    #[test]
+    fn test_3_1() {
+        let input = "\
+hcl:#ae17e1 iyr:2013
+eyr:2024
+ecl:brn pid:760753108 byr:1931
+hgt:179cm";
+
+        assert_eq!(part1(&parse_input(input).unwrap()), 1);
+    }
+
+    #[test]
+    fn test_4_1() {
+        let input = "\
+hcl:#cfa07d eyr:2025 pid:166559648
+iyr:2011 ecl:brn hgt:59in";
+
+        assert_eq!(part1(&parse_input(input).unwrap()), 0);
     }
 }

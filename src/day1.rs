@@ -8,7 +8,7 @@ fn parse_input(input: &str) -> Result<Vec<i32>, Box<dyn Error>> {
 }
 
 #[aoc(day1, part1)]
-fn part1(expenses: &Vec<i32>) -> i32 {
+fn part1(expenses: &[i32]) -> i32 {
     for i in 0..expenses.len() - 1 {
         for j in i..expenses.len() - 1 {
             if expenses[i] + expenses[j] == 2020 {
@@ -16,11 +16,11 @@ fn part1(expenses: &Vec<i32>) -> i32 {
             }
         }
     }
-    return 0;
+    unreachable!()
 }
 
 #[aoc(day1, part2)]
-fn part2(expenses: &Vec<i32>) -> i32 {
+fn part2(expenses: &[i32]) -> i32 {
     for i in 0..expenses.len() - 1 {
         for j in i..expenses.len() - 1 {
             for k in j..expenses.len() - 1 {
@@ -30,11 +30,8 @@ fn part2(expenses: &Vec<i32>) -> i32 {
             }
         }
     }
-    return 0;
+    unreachable!()
 }
-
-////////////////////////////////////////////////
-/// solution with hashing
 
 #[aoc_generator(day1, part1, hash)]
 #[aoc_generator(day1, part2, hash)]
@@ -50,7 +47,7 @@ fn part1_hash(expenses: &HashSet<i32>) -> i32 {
             return j * i;
         }
     }
-    return 0;
+    unreachable!()
 }
 
 #[aoc(day1, part2, hash)]
@@ -63,35 +60,33 @@ fn part2_hash(expenses: &HashSet<i32>) -> i32 {
             }
         }
     }
-    return 0;
+    unreachable!()
 }
-
-////////////////////////////////////////////////
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn sample1() {
+    fn test_1_1() {
         let input = vec![1721, 979, 366, 299, 675, 1456];
         assert_eq!(part1(&input), 514579);
     }
 
     #[test]
-    fn sample1_hash() {
+    fn test_1_1_hash() {
         let input = vec![1721, 979, 366, 299, 675, 1456].into_iter().collect();
         assert_eq!(part1_hash(&input), 514579);
     }
 
     #[test]
-    fn sample2() {
+    fn test_1_2() {
         let input = vec![1721, 979, 366, 299, 675, 1456];
         assert_eq!(part2(&input), 241861950);
     }
 
     #[test]
-    fn sample2_hash() {
+    fn test_1_2_hash() {
         let input = vec![1721, 979, 366, 299, 675, 1456].into_iter().collect();
         assert_eq!(part2_hash(&input), 241861950);
     }

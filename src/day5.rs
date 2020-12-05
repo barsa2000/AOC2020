@@ -1,7 +1,6 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 use std::error::Error;
 
-
 #[aoc_generator(day5)]
 fn parse_input_bin(input: &str) -> Result<Vec<u16>, Box<dyn Error>> {
     input
@@ -19,18 +18,17 @@ fn parse_input_bin(input: &str) -> Result<Vec<u16>, Box<dyn Error>> {
 }
 
 #[aoc(day5, part1)]
-fn part1_bin(passes: &Vec<u16>) -> u16 {
+fn part1_bin(passes: &[u16]) -> u16 {
     *passes.iter().max().unwrap()
 }
 
 #[aoc(day5, part2)]
-fn part2_bin(passes: &Vec<u16>) -> u16 {
+fn part2_bin(passes: &[u16]) -> u16 {
     // *passes.iter().max().unwrap()
-    let mut ids = passes.clone();
-    ids.sort();
+    let mut ids = passes.to_owned();
+    ids.sort_unstable();
     ids.windows(2).find(|x| x[1] != x[0] + 1).unwrap()[0] + 1
 }
-
 
 #[aoc_generator(day5, part2, orig)]
 #[aoc_generator(day5, part1, orig)]
@@ -42,14 +40,14 @@ fn parse_input_orig(input: &str) -> Result<Vec<u16>, Box<dyn Error>> {
 }
 
 #[aoc(day5, part1, orig)]
-fn part1_orig(passes: &Vec<u16>) -> u16 {
+fn part1_orig(passes: &[u16]) -> u16 {
     *passes.iter().max().unwrap()
 }
 
 #[aoc(day5, part2, orig)]
-fn part2_orig(passes: &Vec<u16>) -> u16 {
-    let mut ids = passes.clone();
-    ids.sort();
+fn part2_orig(passes: &[u16]) -> u16 {
+    let mut ids = passes.to_owned();
+    ids.sort_unstable();
     ids.iter()
         .zip(ids.iter().skip(1))
         .find(|(i, n)| **n != **i + 1)
@@ -79,7 +77,7 @@ fn calc_col(s: &str) -> u16 {
 }
 
 fn binary_space_part(code: &str, start: u16, len: u16, upper_c: char, lower_c: char) -> u16 {
-    if code.len() == 0 {
+    if code.is_empty() {
         // println!("{:#016b}", start);
         return start;
     }
@@ -109,18 +107,44 @@ mod tests {
     use super::*;
 
     #[test]
-    fn sample1() {
-        let input = "FBFBBFFRLR";
+    fn test_1_1() {
+        let input = "BFFFBBFRRR";
 
-        println!(
-            "{:#016b}\n{:#016b}",
-            parse_input_orig(input).unwrap().iter().next().unwrap(),
-            parse_input_bin(input).unwrap().iter().next().unwrap()
-        );
+        assert_eq!(part1_bin(&parse_input_bin(input).unwrap()), 567);
+    }
 
-        // println!("{:?}", part2(input));
-        assert_eq!(parse_input_orig(input).unwrap(), parse_input_bin(input).unwrap());
-        assert!(false);
-        // assert_eq!(part2(&parse_input(input).unwrap()), 357);
+    #[test]
+    fn test_1_1_orig() {
+        let input = "BFFFBBFRRR";
+
+        assert_eq!(part1_bin(&parse_input_bin(input).unwrap()), 567);
+    }
+
+    #[test]
+    fn test_2_1() {
+        let input = "FFFBBBFRRR";
+
+        assert_eq!(part1_bin(&parse_input_bin(input).unwrap()), 119);
+    }
+
+    #[test]
+    fn test_2_1_orig() {
+        let input = "FFFBBBFRRR";
+
+        assert_eq!(part1_bin(&parse_input_bin(input).unwrap()), 119);
+    }
+
+    #[test]
+    fn test_3_1() {
+        let input = "BBFFBBFRLL";
+
+        assert_eq!(part1_bin(&parse_input_bin(input).unwrap()), 820);
+    }
+
+    #[test]
+    fn test_3_1_orig() {
+        let input = "BBFFBBFRLL";
+
+        assert_eq!(part1_bin(&parse_input_bin(input).unwrap()), 820);
     }
 }
