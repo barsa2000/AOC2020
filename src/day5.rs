@@ -114,12 +114,12 @@ mod tests {
 
         println!(
             "{:#016b}\n{:#016b}",
-            parse_input(input).unwrap().iter().next().unwrap(),
+            parse_input_orig(input).unwrap().iter().next().unwrap(),
             parse_input_bin(input).unwrap().iter().next().unwrap()
         );
 
         // println!("{:?}", part2(input));
-        assert_eq!(parse_input(input).unwrap(), parse_input_bin(input).unwrap());
+        assert_eq!(parse_input_orig(input).unwrap(), parse_input_bin(input).unwrap());
         assert!(false);
         // assert_eq!(part2(&parse_input(input).unwrap()), 357);
     }
