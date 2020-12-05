@@ -78,7 +78,6 @@ fn calc_col(s: &str) -> u16 {
 
 fn binary_space_part(code: &str, start: u16, len: u16, upper_c: char, lower_c: char) -> u16 {
     if code.is_empty() {
-        // println!("{:#016b}", start);
         return start;
     }
 
