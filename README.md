@@ -21,3 +21,4 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)   | [day3.rs](src/day3.rs) |  ✓  |    **214** |  ✓  | **8336352024** |
 | [Day 4: Passport Processing](https://adventofcode.com/2020/day/4)   | [day4.rs](src/day4.rs) |  ✓  |    **206** |  ✓  |        **123** |
 | [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [day5.rs](src/day5.rs) |  ✓  |    **888** |  ✓  |        **522** |
+| [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [day6.rs](src/day6.rs) |  ✓  |   **6437** |  ✓  |       **3229** |
