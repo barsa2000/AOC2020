@@ -28,9 +28,7 @@ fn part2(passes: &[String]) -> usize {
         .map(|g| {
             g.lines()
                 .fold(('a'..='z').collect::<HashSet<_>>(), |s, l| {
-                    s.intersection(&l.chars().collect())
-                        .copied()
-                        .collect()
+                    s.intersection(&l.chars().collect()).copied().collect()
                 })
                 .len()
         })
