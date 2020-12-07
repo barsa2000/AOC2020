@@ -15,12 +15,11 @@ fn parse_input(input: &str) -> Result<HashMap<String, HashMap<String, u64>>, Box
                 .unwrap()
                 .split(", ")
                 .map(|b| {
-                    let split: Vec<&str> = b.split(' ').collect();
+                    let split: Vec<&str> = b.splitn(2,' ').collect();
 
                     if let Ok(qty) = split[0].parse::<u64>() {
                         Some((
-                            split[1..]
-                                .join(" ")
+                            split[1]
                                 .trim_end_matches('.')
                                 .trim_end_matches(" bag")
                                 .trim_end_matches(" bags")
