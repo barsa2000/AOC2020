@@ -11,7 +11,7 @@ fn parse_input(input: &str) -> Result<HashMap<String, HashMap<String, u64>>, Box
             let mut split = l.split(" contain ");
 
             let bag = split.next().unwrap().trim_end_matches(" bags");
-            let contains = split
+            let sub_bags = split
                 .next()
                 .unwrap()
                 .split(", ")
@@ -35,7 +35,7 @@ fn parse_input(input: &str) -> Result<HashMap<String, HashMap<String, u64>>, Box
                 .flatten()
                 .collect();
 
-            (bag.to_string(), contains)
+            (bag.to_string(), sub_bags)
         })
         .collect())
 }
@@ -43,49 +43,48 @@ fn parse_input(input: &str) -> Result<HashMap<String, HashMap<String, u64>>, Box
 #[aoc(day7, part1)]
 fn part1(bags: &HashMap<String, HashMap<String, u64>>) -> usize {
     bags.iter()
-        .filter(|(a, _)| count_bags(bags, a) != 0)
+        .filter(|(bag, _)| count_bags_part1(bags, bag) != 0)
         .count()
 }
 
-fn count_bags(bags: &HashMap<String, HashMap<String, u64>>, bag: &str) -> u64 {
+fn count_bags_part1(bags: &HashMap<String, HashMap<String, u64>>, bag_str: &str) -> u64 {
     lazy_static! {
         static ref RESULTS: Mutex<HashMap<String, u64>> = Mutex::new(HashMap::new());
     }
-    if bag == "shiny gold" {
+    if bag_str == "shiny gold" {
         return 0;
     }
-    let b = bags.get(bag);
+    let bag = bags.get(bag_str);
 
-    let aa = b.unwrap().get("shiny gold").unwrap_or(&0_u64).to_owned();
-    let ab: u64 = b
-        .unwrap()
-        .iter()
-        .map(|(a, b)| {
-            if RESULTS.lock().unwrap().get(a).is_some() {
-                RESULTS.lock().unwrap().get(a).unwrap().to_owned()
-            } else {
-                let res = b * count_bags(bags, a);
-                RESULTS.lock().unwrap().insert(a.to_owned(), res);
-                res
-            }
-        })
-        .sum();
-    aa + ab
+    bag.unwrap().get("shiny gold").unwrap_or(&0_u64).to_owned()
+        + bag
+            .unwrap()
+            .iter()
+            .map(|(a, b)| {
+                if RESULTS.lock().unwrap().get(a).is_some() {
+                    RESULTS.lock().unwrap().get(a).unwrap().to_owned()
+                } else {
+                    let res = b * count_bags_part1(bags, a);
+                    RESULTS.lock().unwrap().insert(a.to_owned(), res);
+                    res
+                }
+            })
+            .sum::<u64>()
 }
 
 #[aoc(day7, part2)]
 fn part2(bags: &HashMap<String, HashMap<String, u64>>) -> u64 {
-    count_bags_a(bags, &"shiny gold") - 1
+    count_bags_part2(bags, &"shiny gold") - 1
 }
 
-fn count_bags_a(bags: &HashMap<String, HashMap<String, u64>>, bag: &str) -> u64 {
-    let b = bags.get(bag).unwrap();
-    if !b.is_empty() {
-        let aa = b
+fn count_bags_part2(bags: &HashMap<String, HashMap<String, u64>>, bag_str: &str) -> u64 {
+    let sub_bags = bags.get(bag_str).unwrap();
+    if !sub_bags.is_empty() {
+        sub_bags
             .iter()
-            .map(|(a, b)| b * count_bags_a(bags, a))
-            .sum::<u64>();
-        aa + 1
+            .map(|(sub_bag_str, sub_bag_qty)| sub_bag_qty * count_bags_part2(bags, sub_bag_str))
+            .sum::<u64>()
+            + 1
     } else {
         1
     }
