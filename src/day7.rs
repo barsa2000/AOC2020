@@ -1,6 +1,7 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 use std::collections::HashMap;
 use std::error::Error;
+use std::sync::Mutex;
 
 #[aoc_generator(day7)]
 fn parse_input(input: &str) -> Result<HashMap<String, HashMap<String, u64>>, Box<dyn Error>> {
@@ -47,6 +48,9 @@ fn part1(bags: &HashMap<String, HashMap<String, u64>>) -> usize {
 }
 
 fn count_bags(bags: &HashMap<String, HashMap<String, u64>>, bag: &str) -> u64 {
+    lazy_static! {
+        static ref RESULTS: Mutex<HashMap<String, u64>> = Mutex::new(HashMap::new());
+    }
     if bag == "shiny gold" {
         return 0;
     }
@@ -56,7 +60,15 @@ fn count_bags(bags: &HashMap<String, HashMap<String, u64>>, bag: &str) -> u64 {
     let ab: u64 = b
         .unwrap()
         .iter()
-        .map(|(a, b)| b * count_bags(bags, a))
+        .map(|(a, b)| {
+            if RESULTS.lock().unwrap().get(a).is_some() {
+                RESULTS.lock().unwrap().get(a).unwrap().to_owned()
+            } else {
+                let res = b * count_bags(bags, a);
+                RESULTS.lock().unwrap().insert(a.to_owned(), res);
+                res
+            }
+        })
         .sum();
     aa + ab
 }
