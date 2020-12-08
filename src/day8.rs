@@ -2,15 +2,13 @@ use aoc_runner_derive::{aoc, aoc_generator};
 use std::error::Error;
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Copy, Clone, Hash)]
 enum Op {
-    Nop,
-    Jmp,
-    Acc,
+    Nop(i32),
+    Jmp(i32),
+    Acc(i32),
 }
 
-type Instruction = (Op, i32);
-
 #[aoc_generator(day8)]
-fn parse_input(input: &str) -> Result<Vec<Instruction>, Box<dyn Error>> {
+fn parse_input(input: &str) -> Result<Vec<Op>, Box<dyn Error>> {
     Ok(input
         .lines()
         .map(|l| {
@@ -22,32 +20,32 @@ fn parse_input(input: &str) -> Result<Vec<Instruction>, Box<dyn Error>> {
                 _ => unreachable!(),
             };
             let v = split.next().unwrap().parse::<i32>().unwrap();
-            (op, v)
+            op(v)
         })
-        .collect::<Vec<Instruction>>())
+        .collect::<Vec<Op>>())
 }
 
 #[aoc(day8, part1)]
-fn part1(instructions: &[Instruction]) -> i32 {
+fn part1(instructions: &[Op]) -> i32 {
     let mut acc = 0_i32;
     let mut index = 0_usize;
     let mut done = vec![false; instructions.len()];
     while !done[index] {
         done[index] = true;
-        match instructions[index].0 {
-            Op::Nop => index += 1,
-            Op::Acc => {
-                acc += instructions[index].1;
+        match instructions[index] {
+            Op::Nop(_) => index += 1,
+            Op::Acc(n) => {
+                acc += n;
                 index += 1;
             }
-            Op::Jmp => index = (index as i32 + instructions[index].1) as usize,
+            Op::Jmp(n) => index = (index as i32 + n) as usize,
         }
     }
     acc
 }
 
 #[aoc(day8, part2)]
-fn part2(instructions: &[Instruction]) -> i32 {
+fn part2(instructions: &[Op]) -> i32 {
     let mut acc;
     let mut index;
     let mut changed = 0;
@@ -58,19 +56,19 @@ fn part2(instructions: &[Instruction]) -> i32 {
             + ins
                 .iter()
                 .skip(changed)
-                .position(|(a, _)| matches!(a, Op::Nop | Op::Jmp))
+                .position(|a| matches!(a, Op::Nop(_) | Op::Jmp(_)))
                 .unwrap();
 
-        match ins[p].0 {
-            Op::Nop => {
-                ins[p].0 = Op::Jmp;
+        match ins[p] {
+            Op::Nop(n) => {
+                ins[p] = Op::Jmp(n);
                 changed = p + 1;
             }
-            Op::Jmp => {
-                ins[p].0 = Op::Nop;
+            Op::Jmp(n) => {
+                ins[p] = Op::Nop(n);
                 changed = p + 1;
             }
-            Op::Acc => unreachable!(),
+            Op::Acc(_) => unreachable!(),
         }
 
         acc = 0;
@@ -78,13 +76,13 @@ fn part2(instructions: &[Instruction]) -> i32 {
         let mut done = vec![false; ins.len()];
         while !done[index] {
             done[index] = true;
-            match ins[index].0 {
-                Op::Nop => index += 1,
-                Op::Acc => {
-                    acc += ins[index].1;
+            match ins[index] {
+                Op::Nop(_) => index += 1,
+                Op::Acc(n) => {
+                    acc += n;
                     index += 1;
                 }
-                Op::Jmp => index = (index as i32 + ins[index].1) as usize,
+                Op::Jmp(n) => index = (index as i32 + n) as usize,
             }
             if index >= done.len() {
                 break;
