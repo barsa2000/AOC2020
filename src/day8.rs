@@ -40,7 +40,7 @@ fn part1(instructions: &[Instruction]) -> i32 {
                 acc += instructions[index].1;
                 index += 1;
             }
-            Op::Jmp => index += instructions[index].1 as usize,
+            Op::Jmp => index = (index as i32 + instructions[index].1) as usize,
         }
     }
     acc
@@ -84,7 +84,7 @@ fn part2(instructions: &[Instruction]) -> i32 {
                     acc += ins[index].1;
                     index += 1;
                 }
-                Op::Jmp => index += ins[index].1 as usize,
+                Op::Jmp => index = (index as i32 + ins[index].1) as usize,
             }
             if index >= done.len() {
                 break;
