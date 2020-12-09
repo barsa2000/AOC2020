@@ -32,7 +32,7 @@ fn part2(nums: &[u64]) -> u64 {
         let mut s = 0;
         while s < sum {
             j += 1;
-            s+=nums[j];
+            s += nums[j];
         }
 
         if s == sum {
