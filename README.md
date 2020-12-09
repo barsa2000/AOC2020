@@ -24,4 +24,4 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [day6.rs](src/day6.rs) |  ✓  |      **6437** |  ✓  |       **3229** |
 | [Day 7: Handy Haversacks](https://adventofcode.com/2020/day/7)      | [day7.rs](src/day7.rs) |  ✓  |       **148** |  ✓  |      **24867** |
 | [Day 8: Handheld Halting](https://adventofcode.com/2020/day/8)      | [day8.rs](src/day8.rs) |  ✓  |      **2003** |  ✓  |       **1984** |
-| [Day 9: Encoding Error](https://adventofcode.com/2020/day/9)        | [day9.rs](src/day9.rs) |  ✓  | **133015568** |  ✓  |   **16075689** |
+| [Day 9: Encoding Error](https://adventofcode.com/2020/day/9)        | [day9.rs](src/day9.rs) |  ✓  | **133015568** |  ✓  |   **16107959** |
