@@ -1,5 +1,5 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use std::cmp::Ordering;
+use std::cmp::{min, Ordering};
 use std::error::Error;
 
 #[aoc_generator(day9)]
@@ -24,19 +24,40 @@ fn part1(nums: &[u64]) -> u64 {
         .unwrap()
 }
 
+#[aoc(day9, part1, faster)]
+fn part1_faster(nums: &[u64]) -> u64 {
+    let s = 25;
+    let mut i = 0;
+
+    while i + s < nums.len() {
+        let mut found = false;
+        'outer: for j in 0..s - 1 {
+            for k in j + 1..s {
+                if nums[i + j] != nums[i + k] && nums[i + j] + nums[i + k] == nums[i + s] {
+                    found = true;
+                    break 'outer;
+                }
+            }
+        }
+        if !found {
+            return nums[i + s];
+        }
+        i += 1;
+    }
+
+    panic!("nothing found")
+}
+
 #[aoc(day9, part2)]
 fn part2(nums: &[u64]) -> u64 {
     let sum = part1(nums);
 
     for i in 0..nums.len() - 1 {
         let mut j = i + 1;
-        let mut s = 0;
-        while s < sum {
+        while nums[i..=j].iter().sum::<u64>() < sum {
             j += 1;
-            s += nums[j];
         }
-
-        if s == sum {
+        if nums[i..=j].iter().sum::<u64>() == sum {
             return nums[i..=j].iter().min().unwrap() + nums[i..=j].iter().max().unwrap();
         }
     }
@@ -46,36 +67,24 @@ fn part2(nums: &[u64]) -> u64 {
 
 #[aoc(day9, part2, faster)]
 fn part2_faster(nums: &[u64]) -> u64 {
-    let sum = part1(nums);
+    let sum = part1_faster(nums);
     let mut i = 0;
     let mut j = 0;
     let mut s = nums[i];
-    let mut min = nums[i];
-    let mut max = nums[i];
 
     while i < nums.len() && j < nums.len() {
         match s.cmp(&sum) {
             Ordering::Greater => {
                 s -= nums[i];
                 i += 1;
-                if nums[i] < min {
-                    min = nums[i];
-                }
-                if nums[i] > max {
-                    max = nums[i];
-                }
             }
             Ordering::Less => {
                 j += 1;
                 s += nums[j];
-                if nums[j] < min {
-                    min = nums[i];
-                }
-                if nums[j] > max {
-                    max = nums[i];
-                }
             }
-            Ordering::Equal => return min + max,
+            Ordering::Equal => {
+                return nums[i..=j].iter().min().unwrap() + nums[i..=j].iter().max().unwrap()
+            }
         }
     }
 
@@ -113,6 +122,35 @@ mod tests {
         // println!("{:?}", parse_input(input).unwrap());
         // assert!(false);
         assert_eq!(part1(&parse_input(input).unwrap()), 127);
+    }
+
+    #[test]
+    fn test_1_2() {
+        let input = "\
+35
+20
+15
+25
+47
+40
+62
+55
+65
+95
+102
+117
+150
+182
+127
+219
+299
+277
+309
+576";
+
+        // println!("{:?}", parse_input(input).unwrap());
+        // assert!(false);
+        assert_eq!(part1_faster(&parse_input(input).unwrap()), 127);
     }
 
     #[test]
@@ -170,7 +208,7 @@ mod tests {
 
         // println!("{:?}", parse_input(input).unwrap());
         // assert!(false);
-        assert_eq!(part2_faster(&parse_input(input).unwrap()), 40);
-        // assert_eq!(part2_faster(&parse_input(input).unwrap()), 127);
+        // assert_eq!(part2_faster(&parse_input(input).unwrap()), 40);
+        assert_eq!(part2_faster(&parse_input(input).unwrap()), 62);
     }
 }
