@@ -1,5 +1,5 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use std::cmp::{min, Ordering};
+use std::cmp::{Ordering};
 use std::error::Error;
 
 #[aoc_generator(day9)]
