@@ -29,10 +29,13 @@ fn part2(nums: &[u64]) -> u64 {
 
     for i in 0..nums.len() - 1 {
         let mut j = i + 1;
-        while nums[i..=j].iter().sum::<u64>() < sum {
+        let mut s = 0;
+        while s < sum {
             j += 1;
+            s+=nums[j];
         }
-        if nums[i..=j].iter().sum::<u64>() == sum {
+
+        if s == sum {
             return nums[i..=j].iter().min().unwrap() + nums[i..=j].iter().max().unwrap();
         }
     }
