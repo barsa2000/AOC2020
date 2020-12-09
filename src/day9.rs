@@ -1,6 +1,6 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use std::error::Error;
 use std::cmp::Ordering;
+use std::error::Error;
 
 #[aoc_generator(day9)]
 fn parse_input(input: &str) -> Result<Vec<u64>, Box<dyn Error>> {
@@ -54,20 +54,19 @@ fn part2_faster(nums: &[u64]) -> u64 {
     let mut max = nums[i];
 
     while i < nums.len() && j < nums.len() {
-
         match s.cmp(&sum) {
             Ordering::Greater => {
-                s-= nums[i];
-                i+=1;
+                s -= nums[i];
+                i += 1;
                 if nums[i] < min {
                     min = nums[i];
                 }
                 if nums[i] > max {
                     max = nums[i];
                 }
-            },
+            }
             Ordering::Less => {
-                j+=1;
+                j += 1;
                 s += nums[j];
                 if nums[j] < min {
                     min = nums[i];
@@ -75,8 +74,8 @@ fn part2_faster(nums: &[u64]) -> u64 {
                 if nums[j] > max {
                     max = nums[i];
                 }
-            },
-            Ordering::Equal => return min + max
+            }
+            Ordering::Equal => return min + max,
         }
     }
 
