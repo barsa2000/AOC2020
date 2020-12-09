@@ -2,6 +2,7 @@ use aoc_runner_derive::aoc_lib;
 
 #[macro_use]
 extern crate lazy_static;
+extern crate mut_static;
 
 mod day1;
 mod day2;

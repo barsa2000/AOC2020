@@ -9,7 +9,11 @@ fn parse_input(input: &str) -> Result<Vec<u64>, Box<dyn Error>> {
 
 #[aoc(day9, part1)]
 fn part1(nums: &[u64]) -> u64 {
-    let s = 25;
+    solve1(nums, 25)
+}
+
+fn solve1(nums: &[u64], window_size: usize) -> u64 {
+    let s = window_size;
     nums.windows(s + 1)
         .find(|n| {
             !n.iter().take(s).any(|i| {
@@ -26,7 +30,11 @@ fn part1(nums: &[u64]) -> u64 {
 
 #[aoc(day9, part1, faster)]
 fn part1_faster(nums: &[u64]) -> u64 {
-    let s = 25;
+    solve1_faster(nums, 25)
+}
+
+fn solve1_faster(nums: &[u64], window_size: usize) -> u64 {
+    let s = window_size;
     let mut i = 0;
 
     while i + s < nums.len() {
@@ -50,7 +58,11 @@ fn part1_faster(nums: &[u64]) -> u64 {
 
 #[aoc(day9, part2)]
 fn part2(nums: &[u64]) -> u64 {
-    let sum = part1(nums);
+    solve2(nums, 25)
+}
+
+fn solve2(nums: &[u64], window_size: usize) -> u64 {
+    let sum = solve1(nums, window_size);
 
     for i in 0..nums.len() - 1 {
         let mut j = i + 1;
@@ -67,7 +79,11 @@ fn part2(nums: &[u64]) -> u64 {
 
 #[aoc(day9, part2, faster)]
 fn part2_faster(nums: &[u64]) -> u64 {
-    let sum = part1_faster(nums);
+    solve2_faster(nums, 25)
+}
+
+fn solve2_faster(nums: &[u64], window_size: usize) -> u64 {
+    let sum = solve1_faster(nums, window_size);
     let mut i = 0;
     let mut j = 0;
     let mut s = nums[i];
@@ -121,7 +137,7 @@ mod tests {
 
         // println!("{:?}", parse_input(input).unwrap());
         // assert!(false);
-        assert_eq!(part1(&parse_input(input).unwrap()), 127);
+        assert_eq!(solve1(&parse_input(input).unwrap(), 5), 127);
     }
 
     #[test]
@@ -150,7 +166,7 @@ mod tests {
 
         // println!("{:?}", parse_input(input).unwrap());
         // assert!(false);
-        assert_eq!(part1_faster(&parse_input(input).unwrap()), 127);
+        assert_eq!(solve1_faster(&parse_input(input).unwrap(), 5), 127);
     }
 
     #[test]
@@ -179,7 +195,7 @@ mod tests {
 
         // println!("{:?}", parse_input(input).unwrap());
         // assert!(false);
-        assert_eq!(part2(&parse_input(input).unwrap()), 62);
+        assert_eq!(solve2(&parse_input(input).unwrap(), 5), 62);
     }
 
     #[test]
@@ -209,6 +225,6 @@ mod tests {
         // println!("{:?}", parse_input(input).unwrap());
         // assert!(false);
         // assert_eq!(part2_faster(&parse_input(input).unwrap()), 40);
-        assert_eq!(part2_faster(&parse_input(input).unwrap()), 62);
+        assert_eq!(solve2_faster(&parse_input(input).unwrap(), 5), 62);
     }
 }
