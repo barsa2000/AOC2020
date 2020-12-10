@@ -16,13 +16,13 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 
 | Problem                                                             | Solution                 | #1  |     #1 Answer | #2  |           #2 Answer |
 | :------------------------------------------------------------------ | :----------------------- | :-: | ------------: | :-: | ------------------: |
-| [Day 1: Report Repair](https://adventofcode.com/2020/day/1)         | [day1.rs](src/day1.rs)   |  ✓  |    **788739** |  ✓  |       **178724430** |
-| [Day 2: Password Philosophy](https://adventofcode.com/2020/day/2)   | [day2.rs](src/day2.rs)   |  ✓  |       **500** |  ✓  |             **313** |
-| [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)   | [day3.rs](src/day3.rs)   |  ✓  |       **214** |  ✓  |      **8336352024** |
-| [Day 4: Passport Processing](https://adventofcode.com/2020/day/4)   | [day4.rs](src/day4.rs)   |  ✓  |       **206** |  ✓  |             **123** |
-| [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [day5.rs](src/day5.rs)   |  ✓  |       **888** |  ✓  |             **522** |
-| [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [day6.rs](src/day6.rs)   |  ✓  |      **6437** |  ✓  |            **3229** |
-| [Day 7: Handy Haversacks](https://adventofcode.com/2020/day/7)      | [day7.rs](src/day7.rs)   |  ✓  |       **148** |  ✓  |           **24867** |
-| [Day 8: Handheld Halting](https://adventofcode.com/2020/day/8)      | [day8.rs](src/day8.rs)   |  ✓  |      **2003** |  ✓  |            **1984** |
-| [Day 9: Encoding Error](https://adventofcode.com/2020/day/9)        | [day9.rs](src/day9.rs)   |  ✓  | **133015568** |  ✓  |        **16107959** |
+| [Day 1: Report Repair](https://adventofcode.com/2020/day/1)         | [day01.rs](src/day01.rs) |  ✓  |    **788739** |  ✓  |       **178724430** |
+| [Day 2: Password Philosophy](https://adventofcode.com/2020/day/2)   | [day02.rs](src/day02.rs) |  ✓  |       **500** |  ✓  |             **313** |
+| [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)   | [day03.rs](src/day03.rs) |  ✓  |       **214** |  ✓  |      **8336352024** |
+| [Day 4: Passport Processing](https://adventofcode.com/2020/day/4)   | [day04.rs](src/day04.rs) |  ✓  |       **206** |  ✓  |             **123** |
+| [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [day05.rs](src/day05.rs) |  ✓  |       **888** |  ✓  |             **522** |
+| [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [day06.rs](src/day06.rs) |  ✓  |      **6437** |  ✓  |            **3229** |
+| [Day 7: Handy Haversacks](https://adventofcode.com/2020/day/7)      | [day07.rs](src/day07.rs) |  ✓  |       **148** |  ✓  |           **24867** |
+| [Day 8: Handheld Halting](https://adventofcode.com/2020/day/8)      | [day08.rs](src/day08.rs) |  ✓  |      **2003** |  ✓  |            **1984** |
+| [Day 9: Encoding Error](https://adventofcode.com/2020/day/9)        | [day09.rs](src/day09.rs) |  ✓  | **133015568** |  ✓  |        **16107959** |
 | [Day 10: Adapter Array](https://adventofcode.com/2020/day/10)       | [day10.rs](src/day10.rs) |  ✓  |      **1920** |  ✓  |   **1511207993344** |
