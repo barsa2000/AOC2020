@@ -27,3 +27,4 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | [Day 9: Encoding Error](https://adventofcode.com/2020/day/9)        | [day09.rs](src/day09.rs) |  ✓  | **133015568** |  ✓  |        **16107959** |
 | [Day 10: Adapter Array](https://adventofcode.com/2020/day/10)       | [day10.rs](src/day10.rs) |  ✓  |      **1920** |  ✓  |   **1511207993344** |
 | [Day 11: Seating System](https://adventofcode.com/2020/day/11)      | [day11.rs](src/day11.rs) |  ✓  |      **2265** |  ✓  |            **2045** |
+| [Day 12: Rain Risk](https://adventofcode.com/2020/day/12)           | [day12.rs](src/day12.rs) |  ✓  |       **441** |  ✓  |           **40014** |
