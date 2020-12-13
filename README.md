@@ -28,3 +28,4 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | [Day 10: Adapter Array](https://adventofcode.com/2020/day/10)       | [day10.rs](src/day10.rs) |  ✓  |      **1920** |  ✓  |   **1511207993344** |
 | [Day 11: Seating System](https://adventofcode.com/2020/day/11)      | [day11.rs](src/day11.rs) |  ✓  |      **2265** |  ✓  |            **2045** |
 | [Day 12: Rain Risk](https://adventofcode.com/2020/day/12)           | [day12.rs](src/day12.rs) |  ✓  |       **441** |  ✓  |           **40014** |
+| [Day 13: Shuttle Search](https://adventofcode.com/2020/day/13)      | [day13.rs](src/day13.rs) |  ✓  |      **2545** |  ✓  | **266204454441577** |
