@@ -17,15 +17,12 @@ fn part2(starting_numbers: &[u64]) -> u64 {
 }
 
 fn solve(starting_numbers: &[u64], max: u64) -> u64 {
-    let mut numbers: HashMap<u64, u64> = HashMap::new();
-
-    starting_numbers
+    let mut numbers: HashMap<u64, u64> = starting_numbers
         .iter()
         .take(starting_numbers.len() - 1)
         .enumerate()
-        .for_each(|(i, n)| {
-            numbers.insert(*n, i as u64);
-        });
+        .map(|(v, &k)| (k, v as u64))
+        .collect();
 
     let mut turn = starting_numbers.len() as u64;
 
