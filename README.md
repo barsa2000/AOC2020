@@ -31,3 +31,6 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | [Day 13: Shuttle Search](https://adventofcode.com/2020/day/13)          | [day13.rs](src/day13.rs) |  ✓  |           **2545** |  ✓  | **266204454441577** |
 | [Day 14: Docking Data](https://adventofcode.com/2020/day/14)            | [day14.rs](src/day14.rs) |  ✓  | **10452688630537** |  ✓  |   **2881082759597** |
 | [Day 15: Rambunctious Recitation](https://adventofcode.com/2020/day/15) | [day15.rs](src/day15.rs) |  ✓  |           **1194** |  ✓  |           **48710** |
+| [Day 16: Ticket Translation](https://adventofcode.com/2020/day/16)      | [day16.rs](src/day16.rs) |  ✓  |          **20048** |  ✓  |   **4810284647569** |
+| [Day 17: Conway Cubes](https://adventofcode.com/2020/day/17)            | [day17.rs](src/day17.rs) |  ✓  |            **230** |  ✓  |            **1600** |
+| [Day 18: Rambunctious Recitation](https://adventofcode.com/2020/day/18) | [day18.rs](src/day18.rs) |  ✓  |  **7293529867931** |  ✓  |  **60807587180737** |
