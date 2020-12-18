@@ -3,6 +3,8 @@ use aoc_runner_derive::aoc_lib;
 #[macro_use]
 extern crate lazy_static;
 extern crate mut_static;
+extern crate ndarray;
+extern crate binary_tree;
 
 mod day01;
 mod day02;
@@ -19,5 +21,6 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day16;
 
 aoc_lib! { year = 2020}
