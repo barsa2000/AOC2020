@@ -45,7 +45,7 @@ fn parse_input(input: &str) -> Rules_MyTicket_NearbyTickets {
     (rules, my_ticket, nearby_tickets)
 }
 
-#[aoc(day16, part1, real)]
+#[aoc(day16, part1)]
 fn part1(input: &Rules_MyTicket_NearbyTickets) -> u64 {
     let rules = input.0.clone();
     let nearby = input.2.clone();
@@ -65,7 +65,7 @@ fn part1(input: &Rules_MyTicket_NearbyTickets) -> u64 {
         .sum::<u64>()
 }
 
-#[aoc(day16, part2, real)]
+#[aoc(day16, part2)]
 fn part2(input: &Rules_MyTicket_NearbyTickets) -> u64 {
     let mut rules = input.0.clone();
     let my_ticket = input.1.clone();
