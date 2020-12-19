@@ -2,25 +2,27 @@ use aoc_runner_derive::{aoc, aoc_generator};
 use regex::Regex;
 use std::collections::HashMap;
 
+static MAX_LOOP: u32 = 5;
+
 #[derive(Debug, Clone)]
 enum Op {
     Or(Box<Op>, Box<Op>),
-    Concat(Vec<u64>),
+    Concat(Vec<u32>),
     Lit(String),
 }
 
 #[aoc_generator(day19)]
-fn parse_input(input: &str) -> (HashMap<u64, Op>, Vec<String>) {
+fn parse_input(input: &str) -> (HashMap<u32, Op>, Vec<String>) {
     let mut split = input.splitn(2, "\n\n");
 
     let rules = split.next().unwrap();
     let strings = split.next().unwrap();
 
-    let rules: HashMap<u64, Op> = rules
+    let rules: HashMap<u32, Op> = rules
         .lines()
         .map(|l| {
             let mut split = l.splitn(2, ": ");
-            let k: u64 = split.next().unwrap().parse().unwrap();
+            let k: u32 = split.next().unwrap().parse().unwrap();
             let rule = split.next().unwrap();
 
             let out;
@@ -60,7 +62,7 @@ fn parse_input(input: &str) -> (HashMap<u64, Op>, Vec<String>) {
 }
 
 #[aoc(day19, part1)]
-fn part1(rules_strings: &(HashMap<u64, Op>, Vec<String>)) -> u64 {
+fn part1(rules_strings: &(HashMap<u32, Op>, Vec<String>)) -> u32 {
     let rules = &rules_strings.0;
     let strings = &rules_strings.1;
 
@@ -69,11 +71,11 @@ fn part1(rules_strings: &(HashMap<u64, Op>, Vec<String>)) -> u64 {
 
     // println!("{:?}", regex);
 
-    strings.iter().filter(|s| regex.is_match(s)).count() as u64
+    strings.iter().filter(|s| regex.is_match(s)).count() as u32
 }
 
 #[aoc(day19, part2)]
-fn part2(rules_strings: &(HashMap<u64, Op>, Vec<String>)) -> u64 {
+fn part2(rules_strings: &(HashMap<u32, Op>, Vec<String>)) -> u32 {
     let mut rules = rules_strings.0.clone();
     rules.insert(
         8,
@@ -96,10 +98,10 @@ fn part2(rules_strings: &(HashMap<u64, Op>, Vec<String>)) -> u64 {
 
     // println!("{:?}", regex);
 
-    strings.iter().filter(|s| regex.is_match(s)).count() as u64
+    strings.iter().filter(|s| regex.is_match(s)).count() as u32
 }
 
-fn regex_string_from_rule(rules: &HashMap<u64, Op>, rule_id: &u64, max: u64) -> String {
+fn regex_string_from_rule(rules: &HashMap<u32, Op>, rule_id: &u32, max: u32) -> String {
     match rules.get(&rule_id).unwrap() {
         Op::Or(left, right) => {
             let left_str: String;
@@ -113,7 +115,7 @@ fn regex_string_from_rule(rules: &HashMap<u64, Op>, rule_id: &u64, max: u64) -> 
                             } else if id == rule_id {
                                 regex_string_from_rule(rules, &id, max - 1)
                             } else {
-                                regex_string_from_rule(rules, &id, 10)
+                                regex_string_from_rule(rules, &id, MAX_LOOP)
                             }
                         })
                         .collect()
@@ -132,7 +134,7 @@ fn regex_string_from_rule(rules: &HashMap<u64, Op>, rule_id: &u64, max: u64) -> 
                             } else if id == rule_id {
                                 regex_string_from_rule(rules, &id, max - 1)
                             } else {
-                                regex_string_from_rule(rules, &id, 10)
+                                regex_string_from_rule(rules, &id, MAX_LOOP)
                             }
                         })
                         .collect()
@@ -150,7 +152,7 @@ fn regex_string_from_rule(rules: &HashMap<u64, Op>, rule_id: &u64, max: u64) -> 
                 } else if id == rule_id {
                     regex_string_from_rule(rules, &id, max - 1)
                 } else {
-                    regex_string_from_rule(rules, &id, 10)
+                    regex_string_from_rule(rules, &id, MAX_LOOP)
                 }
             })
             .collect::<String>(),
