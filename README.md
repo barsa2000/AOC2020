@@ -33,4 +33,5 @@ Advent of Code 2020 solutions written in [Rust](https://www.rust-lang.org/) :cra
 | [Day 15: Rambunctious Recitation](https://adventofcode.com/2020/day/15) | [day15.rs](src/day15.rs) |  ✓  |           **1194** |  ✓  |           **48710** |
 | [Day 16: Ticket Translation](https://adventofcode.com/2020/day/16)      | [day16.rs](src/day16.rs) |  ✓  |          **20048** |  ✓  |   **4810284647569** |
 | [Day 17: Conway Cubes](https://adventofcode.com/2020/day/17)            | [day17.rs](src/day17.rs) |  ✓  |            **230** |  ✓  |            **1600** |
-| [Day 18: Rambunctious Recitation](https://adventofcode.com/2020/day/18) | [day18.rs](src/day18.rs) |  ✓  |  **7293529867931** |  ✓  |  **60807587180737** |
+| [Day 18: Operation Order](https://adventofcode.com/2020/day/18)         | [day18.rs](src/day18.rs) |  ✓  |  **7293529867931** |  ✓  |  **60807587180737** |
+| [Day 19: Monster Messages](https://adventofcode.com/2020/day/18)        | [day19.rs](src/day19.rs) |  ✓  |            **168** |  ✓  |             **277** |
